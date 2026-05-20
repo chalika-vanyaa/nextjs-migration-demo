@@ -1,0 +1,7 @@
+[[rule]]
+toolName = ["read_file", "read_many_files", "write_file", "replace", "grep_search"]
+# match any .env.* file except .env.example
+argsPattern = '\.env(?!\.example")[^"]*"'
+decision = "deny"
+priority = 600
+denyMessage = "Access to .env files (except .env.example) is blocked for security."

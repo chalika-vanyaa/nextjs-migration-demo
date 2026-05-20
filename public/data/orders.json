@@ -1,0 +1,14 @@
+[
+  {
+    "orderId": "order101",
+    "productId": "prod1",
+    "quantity": 2,
+    "orderDate": "2023-01-15T10:00:00Z"
+  },
+  {
+    "orderId": "order102",
+    "productId": "prod2",
+    "quantity": 1,
+    "orderDate": "2023-01-15T11:30:00Z"
+  }
+]

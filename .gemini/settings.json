@@ -1,0 +1,25 @@
+{
+  "mcpServers": {
+    "context7": {
+      "httpUrl": "https://mcp.context7.com/mcp",
+      "headers": {
+        "Accept": "application/json, text/event-stream"
+      }
+    }
+  },
+  "hooks": {
+    "AfterTool": [
+      {
+        "matcher": "write_file|replace",
+        "hooks": [
+          {
+            "name": "format-frontend",
+            "type": "command",
+            "command": "$GEMINI_PROJECT_DIR/.gemini/hooks/format-frontend.sh",
+            "description": "Runs node --check on modified JS files in pages/, components/, or lib/ to catch syntax errors early."
+          }
+        ]
+      }
+    ]
+  }
+}
