@@ -1,23 +1,27 @@
-# Next.js 9 Simple Product Store
+# Next.js 16 Simple Product Store (Migrated)
 
-This is a demo application of a simple product store built with Next.js 9.
+> **Migration Note**
+> This repository documents a migration from Next.js 9 to Next.js 16.
+> - The `main` branch contains the original legacy Next.js 9 project.
+> - The `dev` branch contains the final, fully migrated Next.js 16 project using the App Router.
+
+This is a demo application of a simple product store, showcasing a modern Next.js 16 architecture.
 
 ## Features
 
-*   Next.js 9
-*   Pages Router
-*   JavaScript
-*   CSS Modules
-*   `getInitialProps` for data fetching
-*   Mock JSON files as data source
-*   Dockerized
+*   **Next.js 16** with **App Router**
+*   **TypeScript**
+*   **React Server Components** for data fetching
+*   CSS Modules for styling
+*   Mock JSON files as a data source
+*   Dockerized for production
 
-## Pages
+## Pages (App Router)
 
-*   **/**: Home page
-*   **/products**: Product list page
-*   **/products/[id]**: Product detail page
-*   **/orders**: Orders list page
+*   **`/`**: Home page
+*   **`/products`**: Product list page
+*   **`/products/[id]`**: Product detail page
+*   **`/orders`**: Orders list page
 
 ## API Routes
 
@@ -42,13 +46,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ### With Docker
 
-1.  Build the Docker image:
+1.  Build and run the container:
     ```bash
-    docker-compose up build
-    ```
-2.  Run the Docker container:
-    ```bash
-    docker-compose up
+    docker-compose up --build
     ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

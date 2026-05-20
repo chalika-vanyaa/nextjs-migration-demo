@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Link from 'next/link';
 import styles from '../styles/ProductCard.module.css';
+import { Product } from '../types';
 
-const ProductCard = ({ product }) => {
+interface ProductCardProps {
+  product: Product;
+}
+
+const ProductCard: FC<ProductCardProps> = ({ product }) => {
   return (
     <Link href={`/products/${product.id}`}>
       <a className={styles.card}>

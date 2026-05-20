@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styles from '../styles/OrderCard.module.css';
+import { Order } from '../types';
 
-const OrderCard = ({ order }) => {
+interface OrderCardProps {
+  order: Order;
+}
+
+const OrderCard: FC<OrderCardProps> = ({ order }) => {
   return (
     <div className={styles.card}>
       <div className={styles.header}>

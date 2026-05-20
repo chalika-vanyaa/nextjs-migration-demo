@@ -1,50 +1,60 @@
-# Project Overview: Next.js 9 Simple Product Store
+# Project Overview: Next.js 16 Simple Product Store
 
-This project is a professionally styled, demo-purpose product store built with Next.js 9. It demonstrates a classic server-rendered React application structure, a full-featured agent-based development environment, and a production-ready Docker setup.
+This repository contains a simple product store application that has been fully migrated from a legacy Next.js 9 architecture to a modern **Next.js 16.2.6** stack. It serves as a demonstration of current Next.js best practices.
 
-**Key Technologies & Concepts:**
+> **Migration Note:** The `main` branch contains the original legacy Next.js 9 project. This `dev` branch contains the final, fully migrated Next.js 16 project.
 
-*   **Framework:** Next.js 9
-*   **Language:** JavaScript (ES6+)
-*   **Routing:** Pages Router (`pages/`)
-*   **Data Fetching:** `getInitialProps` using `isomorphic-unfetch` to call internal API routes.
-*   **API:** Serverless API routes under `pages/api/`.
-*   **Data Source:** Mock JSON files in `public/data/`, accessed via a server-side data layer in `lib/data.js`.
-*   **Styling:** A professional design using the 'Inter' web font, a defined color palette (via CSS variables), and CSS Modules with advanced layouts (CSS Grid).
-*   **Containerization:** Docker and Docker Compose are configured for consistent, production-oriented builds.
+**Key Technologies & Architecture:**
+
+*   **Framework:** Next.js 16.2.6
+*   **Language:** TypeScript
+*   **Compiler:** Turbopack (default)
+*   **Architecture:** App Router
+*   **Data Fetching:** React Server Components (`async`/`await` in components)
+*   **Styling:** CSS Modules with a defined global theme (`styles/globals.css`).
+*   **Containerization:** Docker (`Dockerfile` + `docker-compose.yml`) running on Node.js 20.
 
 ## Building and Running
 
 ### Local Development
 
-1.  **Install Dependencies**:
-    ```bash
-    npm install
-    ```
-2.  **Run the Development Server**:
-    ```bash
-    npm run dev
-    ```
+1.  **Install Dependencies**: `npm install`
+2.  **Run the Dev Server**: `npm run dev`
     The application will be available at `http://localhost:3000`.
 
 ### Docker (Production Mode)
 
-1.  **Build and run the container**:
-    ```bash
-    docker-compose up --build
-    ```
+1.  **Build and Run**: `docker-compose up --build`
     The application will be available at `http://localhost:3000`.
 
 ## Development Conventions
 
-*   **Styling:** Follow the established professional design system. Use the 'Inter' font, the CSS variables defined in `styles/globals.css` for colors, and create responsive, component-scoped styles using CSS Modules.
-*   **Data Fetching:** Pages use `getInitialProps` to call the internal API routes. This pattern is used to decouple page rendering from server-side modules like `fs`.
-*   **Components:** Components are designed to be visually appealing and reusable. For example, `ProductCard` includes an image placeholder and a clear call-to-action button.
-*   **Documentation:** Project architecture and planning documents are kept in the `docs/` directory.
+### Data Fetching
+
+The project uses a **Server-First** data fetching model. Pages and components in the `app` directory are Server Components by default and should access the data layer (e.g., `lib/data.ts`) *directly*. This is more performant and simpler than making internal `fetch` calls.
+
+**Important:** For dynamic pages, the `params` prop is a `Promise`. You must `await` it before accessing its properties.
+
+```typescript
+// app/products/[id]/page.tsx
+export default async function ProductDetailPage({ params }) {
+  const { id } = await params; // Correctly awaiting params
+  const product = await getProductById(id);
+  // ...
+}
+```
+
+### API Routes
+
+Legacy API routes are still handled by the `pages/api/` directory. New server endpoints should be created as **Route Handlers** within the `app/api/` directory.
+
+### Styling
+
+Follow the established design system. Use the CSS variables in `styles/globals.css` for colors and `Layout.module.css` for page structure. New components should use their own `.module.css` file for locally scoped styles.
 
 ## Agent Configuration (`.gemini/`)
 
-This project is configured for advanced, agent-driven development using the Gemini CLI.
+This project is configured for advanced, agent-driven development.
 
 ### Agent Skills Setup
 
@@ -53,7 +63,7 @@ To set up the recommended development skills for this project, run the setup scr
 ```bash
 ./setup.sh
 ```
-This will install several skills (e.g., `nextjs-best-practices`, `typescript-expert`, `systematic-debugging`) into the `.gemini/skills/` directory. This directory is ignored by Git and Docker.
+This will install several skills (e.g., `nextjs-best-practices`, `typescript-expert`, `systematic-debugging`) into the `.gemini/skills/` directory. This directory is ignored by Docker.
 
 ### Policies
 
@@ -63,4 +73,4 @@ The `.gemini/policies/` directory contains rules that govern the agent's behavio
 
 ### Real-time Syntax Checking
 
-The project uses a Gemini hook (`.gemini/hooks/format-frontend.sh`) that runs `node --check` on any JavaScript file the agent modifies. This provides immediate feedback and prevents basic syntax errors, ensuring the codebase remains healthy during development.
+A Gemini hook is configured in `.gemini/settings.json` to run a syntax check (`node --check`) on any `.js` or `.ts` file the agent modifies in the `pages`, `components`, or `lib` directories, preventing basic syntax errors in real-time.
