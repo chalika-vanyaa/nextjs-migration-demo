@@ -1,0 +1,15 @@
+{
+  "format-frontend": {
+    "PostToolUse": [
+      {
+        "matcher": "replace_file_content|multi_replace_file_content",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".agents/hooksformat-frontend.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

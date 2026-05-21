@@ -1,0 +1,5 @@
+{
+  "permissions": {
+    "deny": ["command(rm -rf)", "command(rmdir)", "file(.env*)"]
+  }
+}
