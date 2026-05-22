@@ -44,7 +44,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 1.  Build the Docker image:
     ```bash
-    docker-compose up build
+    docker-compose up --build
     ```
 2.  Run the Docker container:
     ```bash
